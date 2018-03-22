@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    volumeMounts:
+    - name: nfs-vol
+      mountPath: /opt
+    image: nginx
+    ports:
+     - containerPort: 80
+    securityContext:
+        privileged: true 
+  volumes:                           #<<-- These four lines
+  - name: nfs-vol
+    persistentVolumeClaim:
+     claimName: pvc-one
+
